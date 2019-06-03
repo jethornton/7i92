@@ -104,6 +104,37 @@ def config(parent):
 				if not getattr(parent, 'dirHold_' + str(index)).text():
 					tabError = True
 					configErrors.append('\tThe for Direction Hold for Joint {} must be specified'.format(index))
+				# add sanity check for home entries
+				if getattr(parent, 'home_' + str(index)).text():
+					try:
+						float(getattr(parent, 'home_' + str(index)).text())
+					except ValueError:
+						tapError = True
+						configErrors.append('\tThe for Home Location for Joint {} must be a number'.format(index))
+				if getattr(parent, 'homeOffset_' + str(index)).text():
+					try:
+						float(getattr(parent, 'homeOffset_' + str(index)).text())
+					except ValueError:
+						tapError = True
+						configErrors.append('\tThe for Home Offset for Joint {} must be a number'.format(index))
+				if getattr(parent, 'homeSearchVel_' + str(index)).text():
+					try:
+						float(getattr(parent, 'homeSearchVel_' + str(index)).text())
+					except ValueError:
+						tapError = True
+						configErrors.append('\tThe for Home Search Velocity for Joint {} must be a number'.format(index))
+				if getattr(parent, 'homeLatchVel_' + str(index)).text():
+					try:
+						float(getattr(parent, 'homeLatchVel_' + str(index)).text())
+					except ValueError:
+						tapError = True
+						configErrors.append('\tThe for Home Latch Velocity for Joint {} must be a number'.format(index))
+				if getattr(parent, 'homeSequence_' + str(index)).text():
+					try:
+						float(getattr(parent, 'homeSequence_' + str(index)).text())
+					except ValueError:
+						tapError = True
+						configErrors.append('\tThe for Home Sequence for Joint {} must be a number'.format(index))
 
 	if tabError:
 		configErrors.insert(nextHeader, 'Axis Tab:')
