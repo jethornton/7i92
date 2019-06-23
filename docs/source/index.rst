@@ -23,6 +23,7 @@
    info
    pc
 
+Report Issues at the `GitHub Issues Tracker for the 7i92 <https://github.com/jethornton/7i92/issues>`_
 
 Indices and tables
 ==================
