@@ -453,9 +453,10 @@ def buildini(parent):
 		iniContents.append('BIAS = {}\n'.format(parent.bias_s.text()))
 		iniContents.append('MAX_ERROR = {}\n'.format(parent.maxError_s.text()))
 
+	iniContents.append('\n###### DO NOT change anything below this line!!!\n')
+
 	# build the [INPUTS] section
 	iniContents.append('\n[INPUTS]\n')
-	iniContents.append('# DO NOT change the input text\n')
 	iniContents.append('INPUT_0 = {}\n'.format(parent.input_0.currentText()))
 	iniContents.append('INPUT_JOINT_0 = {}\n'.format(parent.inputJoint_0.currentData()))
 	iniContents.append('INPUT_1 = {}\n'.format(parent.input_1.currentText()))
@@ -524,7 +525,6 @@ def buildini(parent):
 
 	# build the [OUTPUTS] section
 	iniContents.append('\n[OUTPUTS]\n')
-	iniContents.append('# DO NOT change the output text\n')
 	iniContents.append('OUTPUT_0 = {}\n'.format(parent.output_0.currentText()))
 	iniContents.append('OUTPUT_1 = {}\n'.format(parent.output_1.currentText()))
 	iniContents.append('OUTPUT_2 = {}\n'.format(parent.output_2.currentText()))
@@ -883,7 +883,8 @@ def buildio(parent):
 	ioContents = []
 	ioContents = ['# This file was created with the 7i92 Wizard on ']
 	ioContents.append(datetime.now().strftime('%b %d %Y %H:%M:%S') + '\n')
-	ioContents.append('# If you make changes to this file your screwed\n\n')
+	ioContents.append('# If you make changes to this file DO NOT run the configuration tool again!\n')
+	ioContents.append('# This file will be replaced with a new file if you do!\n\n')
 
 	# build the inputs
 	for index in range(31):
