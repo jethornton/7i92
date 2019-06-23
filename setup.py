@@ -10,7 +10,7 @@ data_files = [(os.path.expanduser(dest), src_list) for dest, src_list in DATA_FI
 
 setup(
     name="7i92",
-    version="0.0.3",
+    version="0.1",
     author="John Thornton",
     author_email="<jt@gnipsel.com>",
     description="Mesa configuration tool for 7i92",

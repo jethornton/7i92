@@ -886,7 +886,7 @@ QGroupBox::title {
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="axes">
        <attribute name="title">
         <string>Axes</string>
        </attribute>

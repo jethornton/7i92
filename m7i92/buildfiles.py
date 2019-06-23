@@ -42,12 +42,12 @@ def buildini(parent):
 
 	# build the [HOSTMOT2] section
 	iniContents.append('\n[HOSTMOT2]\n')
-	iniContents.append('DRIVER = {}\n'.format('hm2_eth'))
+	iniContents.append('DRIVER = hm2_eth\n')
 	iniContents.append('IPADDRESS = {}\n'.format(parent.ipAddressCB.itemData(parent.ipAddressCB.currentIndex())))
-	iniContents.append('BOARD = {}\n'.format(parent.boardCB.itemData(parent.boardCB.currentIndex())))
-	iniContents.append('STEPGENS = {}\n'.format(str(parent.stepgensSB.value())))
-	iniContents.append('ENCODERS = {}\n'.format(str(parent.encodersSB.value())))
-	iniContents.append('SSERIAL_PORT = {}\n'.format(str(parent.sserialSB.value())))
+	iniContents.append('BOARD = 7i92\n')
+	iniContents.append('STEPGENS = 5\n')
+	iniContents.append('ENCODERS = 1\n')
+	iniContents.append('SSERIAL_PORT = 1\n')
 
 	# build the [DISPLAY] section maxFeedOverrideLE
 	iniContents.append('\n[DISPLAY]\n')

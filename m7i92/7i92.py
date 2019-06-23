@@ -18,7 +18,7 @@ from m7i92.help import Ui_Dialog as helpDialog
 from m7i92.about import Ui_about as aboutDialog
 
 UI_FILE = os.path.join(os.path.dirname(__file__), "7i92.ui")
-VERSION = '0.0.1'
+VERSION = '0.1'
 
 class MainWindow(QMainWindow):
 	def __init__(self):
@@ -234,11 +234,6 @@ class MainWindow(QMainWindow):
 				getattr(self, 'maxVelocity_' + str(i)).setToolTip('millimeters per second')
 				getattr(self, 'maxAccel_' + str(i)).setToolTip('millimeters per second per second')
 				self.units = 'mm'
-		if self.linearUnitsCB.itemData(self.linearUnitsCB.currentIndex()):
-			self.axisTab.setEnabled(True)
-			self.joint0tab.setEnabled(True)
-		else:
-			self.axisTab.setEnabled(False)
 
 	def onAxisChanged(self):
 		coordList = []
@@ -254,7 +249,7 @@ class MainWindow(QMainWindow):
 				else:
 					getattr(self, 'axisType_' + jointTab).setText('')
 		self.coordinatesLB.setText(''.join(coordList))
-		self.stepgensSB.setValue(len(coordList))
+		#self.stepgensSB.setValue(len(coordList))
 
 	def driveChanged(self):
 		timing = self.sender().itemData(self.sender().currentIndex())
