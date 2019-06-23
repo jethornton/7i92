@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'7i76e'
+project = u'7i92'
 copyright = u'2019, John Thornton'
 author = u'John Thornton'
 
@@ -109,7 +109,7 @@ html_static_path = []
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '7i76edoc'
+htmlhelp_basename = '7i92doc'
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -135,7 +135,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, '7i76e.tex', u'7i76e Documentation',
+    (master_doc, '7i92.tex', u'7i92 Documentation',
      u'John Thornton', 'manual'),
 ]
 
@@ -145,7 +145,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, '7i76e', u'7i76e Documentation',
+    (master_doc, '7i92', u'7i92 Documentation',
      [author], 1)
 ]
 
@@ -156,8 +156,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, '7i76e', u'7i76e Documentation',
-     author, '7i76e', 'One line description of project.',
+    (master_doc, '7i92', u'7i92 Documentation',
+     author, '7i92', 'One line description of project.',
      'Miscellaneous'),
 ]
 

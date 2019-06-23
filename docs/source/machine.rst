@@ -28,17 +28,17 @@ The `Machine Group` contains overall configuration information for the machine.
 Firmware Group
 ^^^^^^^^^^^^^^
 
-In `Firmware Group` you can view and change the 7i76e firmware. Before using the
+In `Firmware Group` you can view and change the 7i92 firmware. Before using the
 `Firmware` buttons you must select the IP Address in the `Board Setup Group`.
-The 7i76e must be connected to the PC and 5vdc power supplied.
+The 7i92 must be connected to the PC and 5vdc power supplied.
 
 * **Read** Reads the current firmware and displays it in the output window. If
-  sucessful then you have the 7i76e configured and connected correctly.
+  sucessful then you have the 7i92 configured and connected correctly.
 
 * **Flash** After selecting the firmware the `Flash` button will write the new
-  firmware to the 7i76e.
+  firmware to the 7i92.
 
-* **Reload** After flashing you must either `Reload` or power cycle the 7i76e.
+* **Reload** After flashing you must either `Reload` or power cycle the 7i92.
 
 * **Copy** Copies the contents of the output window to the clipboard. Then you
   can paste the output to a file for later use.
@@ -46,11 +46,11 @@ The 7i76e must be connected to the PC and 5vdc power supplied.
 Board Setup Group
 ^^^^^^^^^^^^^^^^^
 
-The `Board Setup Group` contains options for the 7i76e card.
+The `Board Setup Group` contains options for the 7i92 card.
 
 * **Driver** Default is HostMot2 Ethernet
 
-* **IP Address** Select the IP address configured on the 7i76e.
+* **IP Address** Select the IP address configured on the 7i92.
 
 * **Step Generators** For future use
 

@@ -2,7 +2,7 @@
 Installing
 ==========
 
-7i76e Configuration Tool
+7i92 Configuration Tool
 
 1. Install required dependencies. In a terminal do:
 ::
