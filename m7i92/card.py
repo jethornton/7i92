@@ -16,7 +16,7 @@ a terminal with\nsudo apt-get install libpci-dev')
 		parent.outputLB.setText('An IP address must be selected')
 		return
 	ipAddress = parent.ipAddressCB.currentText()
-	command = [parent.mesaflash, "--device", "7i76e", "--addr", ipAddress, "--readhmid"]
+	command = [parent.mesaflash, "--device", "7i92", "--addr", ipAddress, "--readhmid"]
 
 	try:
 		output = subprocess.check_output(command, stderr=subprocess.PIPE)
@@ -36,11 +36,11 @@ def flashCard(parent):
 	if not parent.ipAddressCB.currentData():
 		parent.outputLB.setText('An IP address must be selected')
 		return
-	parent.statusbar.showMessage('Flashing the 7i76e...')
+	parent.statusbar.showMessage('Flashing the 7i92...')
 	parent.outputLB.setText('')
 	ipAddress = parent.ipAddressCB.currentText()
-	firmware = os.path.join(os.path.dirname(__file__), parent.firmwareCB.currentData())
-	command = [parent.mesaflash, '--device', '7i76e', '--addr', ipAddress, '--write', firmware]
+	firmware = os.path.join(os.path.dirname(__file__), 'firmware', parent.firmwareCB.currentData())
+	command = [parent.mesaflash, '--device', '7i92', '--addr', ipAddress, '--write', firmware]
 	output = []
 
 	with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) as proc:
@@ -56,7 +56,7 @@ def reloadCard(parent):
 		return
 
 	ipAddress = parent.ipAddressCB.currentText()
-	command = [parent.mesaflash, '--device', '7i76e', '--addr', ipAddress, '--reload']
+	command = [parent.mesaflash, '--device', '7i92', '--addr', ipAddress, '--reload']
 	output = []
 
 	process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
