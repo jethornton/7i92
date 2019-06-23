@@ -64,7 +64,7 @@ def reloadCard(parent):
 	if process.returncode == 0:
 		parent.outputLB.setText('Reload Sucessful')
 	elif process.returncode == 255:
-		parent.outputLB.setText('No 7i76e board found')
+		parent.outputLB.setText('No 7i92 board found')
 	else:
 		parent.outputLB.setText('Reload returned an error code of {}'.format(process.returncode))
 

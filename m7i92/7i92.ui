@@ -11256,7 +11256,7 @@ QGroupBox::title {
          </font>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The 7i76e must be connected and LinuxCNC running a&lt;br/&gt;7i76e configuration before trying to read tMax.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The 7i92 must be connected and LinuxCNC running a&lt;br/&gt;7i92 configuration before trying to read tMax.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>
