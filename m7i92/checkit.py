@@ -126,7 +126,6 @@ def config(parent):
 						tabError = True
 						configErrors.append('\tThe for Home Sequence for Joint {} must be a number'.format(index))
 
-
 	if tabError:
 		configErrors.insert(nextHeader, 'Axis Tab:')
 		nextHeader = len(configErrors)

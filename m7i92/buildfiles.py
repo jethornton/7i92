@@ -42,12 +42,12 @@ def buildini(parent):
 
 	# build the [HOSTMOT2] section
 	iniContents.append('\n[HOSTMOT2]\n')
-	iniContents.append('DRIVER = hm2_eth\n')
+	iniContents.append('DRIVER = {}\n'.format('hm2_eth'))
 	iniContents.append('IPADDRESS = {}\n'.format(parent.ipAddressCB.itemData(parent.ipAddressCB.currentIndex())))
-	iniContents.append('BOARD = 7i92\n')
-	iniContents.append('STEPGENS = 5\n')
-	iniContents.append('ENCODERS = 1\n')
-	iniContents.append('SSERIAL_PORT = 1\n')
+	iniContents.append('BOARD = {}\n'.format(parent.boardCB.itemData(parent.boardCB.currentIndex())))
+	iniContents.append('STEPGENS = {}\n'.format(str(parent.stepgensSB.value())))
+	iniContents.append('ENCODERS = {}\n'.format(str(parent.encodersSB.value())))
+	iniContents.append('SSERIAL_PORT = {}\n'.format(str(parent.sserialSB.value())))
 
 	# build the [DISPLAY] section maxFeedOverrideLE
 	iniContents.append('\n[DISPLAY]\n')
@@ -106,7 +106,7 @@ def buildini(parent):
 	iniContents.append('HALFILE = {}.hal\n'.format(parent.configNameUnderscored))
 	iniContents.append('HALFILE = io.hal\n')
 	iniContents.append('HALFILE = custom.hal\n')
-	iniContents.append('HALFILE = postgui.hal\n')
+	iniContents.append('POSTGUI_HALFILE = postgui.hal\n')
 	if parent.haluiCB.isChecked():
 		iniContents.append('HALUI = halui\n')
 
@@ -453,78 +453,110 @@ def buildini(parent):
 		iniContents.append('BIAS = {}\n'.format(parent.bias_s.text()))
 		iniContents.append('MAX_ERROR = {}\n'.format(parent.maxError_s.text()))
 
-	iniContents.append('\n###### DO NOT change anything below this line!!!\n')
-
 	# build the [INPUTS] section
 	iniContents.append('\n[INPUTS]\n')
+	iniContents.append('# DO NOT change the input text\n')
 	iniContents.append('INPUT_0 = {}\n'.format(parent.input_0.currentText()))
+	iniContents.append('INPUT_INVERT_0 = {}\n'.format(parent.inputInvert_0.isChecked()))
 	iniContents.append('INPUT_JOINT_0 = {}\n'.format(parent.inputJoint_0.currentData()))
 	iniContents.append('INPUT_1 = {}\n'.format(parent.input_1.currentText()))
+	iniContents.append('INPUT_INVERT_1 = {}\n'.format(parent.inputInvert_1.isChecked()))
 	iniContents.append('INPUT_JOINT_1 = {}\n'.format(parent.inputJoint_1.currentData()))
 	iniContents.append('INPUT_2 = {}\n'.format(parent.input_2.currentText()))
+	iniContents.append('INPUT_INVERT_2 = {}\n'.format(parent.inputInvert_2.isChecked()))
 	iniContents.append('INPUT_JOINT_2 = {}\n'.format(parent.inputJoint_2.currentData()))
 	iniContents.append('INPUT_3 = {}\n'.format(parent.input_3.currentText()))
+	iniContents.append('INPUT_INVERT_3 = {}\n'.format(parent.inputInvert_3.isChecked()))
 	iniContents.append('INPUT_JOINT_3 = {}\n'.format(parent.inputJoint_3.currentData()))
 	iniContents.append('INPUT_4 = {}\n'.format(parent.input_4.currentText()))
+	iniContents.append('INPUT_INVERT_4 = {}\n'.format(parent.inputInvert_4.isChecked()))
 	iniContents.append('INPUT_JOINT_4 = {}\n'.format(parent.inputJoint_4.currentData()))
 	iniContents.append('INPUT_5 = {}\n'.format(parent.input_5.currentText()))
+	iniContents.append('INPUT_INVERT_5 = {}\n'.format(parent.inputInvert_5.isChecked()))
 	iniContents.append('INPUT_JOINT_5 = {}\n'.format(parent.inputJoint_5.currentData()))
 	iniContents.append('INPUT_6 = {}\n'.format(parent.input_6.currentText()))
+	iniContents.append('INPUT_INVERT_6 = {}\n'.format(parent.inputInvert_6.isChecked()))
 	iniContents.append('INPUT_JOINT_6 = {}\n'.format(parent.inputJoint_6.currentData()))
 	iniContents.append('INPUT_7 = {}\n'.format(parent.input_7.currentText()))
+	iniContents.append('INPUT_INVERT_7 = {}\n'.format(parent.inputInvert_7.isChecked()))
 	iniContents.append('INPUT_JOINT_7 = {}\n'.format(parent.inputJoint_7.currentData()))
 	iniContents.append('INPUT_8 = {}\n'.format(parent.input_8.currentText()))
+	iniContents.append('INPUT_INVERT_8 = {}\n'.format(parent.inputInvert_8.isChecked()))
 	iniContents.append('INPUT_JOINT_8 = {}\n'.format(parent.inputJoint_8.currentData()))
 	iniContents.append('INPUT_9 = {}\n'.format(parent.input_9.currentText()))
+	iniContents.append('INPUT_INVERT_9 = {}\n'.format(parent.inputInvert_9.isChecked()))
 	iniContents.append('INPUT_JOINT_9 = {}\n'.format(parent.inputJoint_9.currentData()))
 	iniContents.append('INPUT_10 = {}\n'.format(parent.input_10.currentText()))
+	iniContents.append('INPUT_INVERT_10 = {}\n'.format(parent.inputInvert_10.isChecked()))
 	iniContents.append('INPUT_JOINT_10 = {}\n'.format(parent.inputJoint_10.currentData()))
 	iniContents.append('INPUT_11 = {}\n'.format(parent.input_11.currentText()))
+	iniContents.append('INPUT_INVERT_11 = {}\n'.format(parent.inputInvert_11.isChecked()))
 	iniContents.append('INPUT_JOINT_11 = {}\n'.format(parent.inputJoint_11.currentData()))
 	iniContents.append('INPUT_12 = {}\n'.format(parent.input_12.currentText()))
+	iniContents.append('INPUT_INVERT_12 = {}\n'.format(parent.inputInvert_12.isChecked()))
 	iniContents.append('INPUT_JOINT_12 = {}\n'.format(parent.inputJoint_12.currentData()))
 	iniContents.append('INPUT_13 = {}\n'.format(parent.input_13.currentText()))
+	iniContents.append('INPUT_INVERT_13 = {}\n'.format(parent.inputInvert_13.isChecked()))
 	iniContents.append('INPUT_JOINT_13 = {}\n'.format(parent.inputJoint_13.currentData()))
 	iniContents.append('INPUT_14 = {}\n'.format(parent.input_14.currentText()))
+	iniContents.append('INPUT_INVERT_14 = {}\n'.format(parent.inputInvert_14.isChecked()))
 	iniContents.append('INPUT_JOINT_14 = {}\n'.format(parent.inputJoint_14.currentData()))
 	iniContents.append('INPUT_15 = {}\n'.format(parent.input_15.currentText()))
+	iniContents.append('INPUT_INVERT_15 = {}\n'.format(parent.inputInvert_15.isChecked()))
 	iniContents.append('INPUT_JOINT_15 = {}\n'.format(parent.inputJoint_15.currentData()))
 	iniContents.append('INPUT_16 = {}\n'.format(parent.input_16.currentText()))
+	iniContents.append('INPUT_INVERT_16 = {}\n'.format(parent.inputInvert_16.isChecked()))
 	iniContents.append('INPUT_JOINT_16 = {}\n'.format(parent.inputJoint_16.currentData()))
 	iniContents.append('INPUT_17 = {}\n'.format(parent.input_17.currentText()))
+	iniContents.append('INPUT_INVERT_17 = {}\n'.format(parent.inputInvert_17.isChecked()))
 	iniContents.append('INPUT_JOINT_17 = {}\n'.format(parent.inputJoint_17.currentData()))
 	iniContents.append('INPUT_18 = {}\n'.format(parent.input_18.currentText()))
+	iniContents.append('INPUT_INVERT_18 = {}\n'.format(parent.inputInvert_18.isChecked()))
 	iniContents.append('INPUT_JOINT_18 = {}\n'.format(parent.inputJoint_18.currentData()))
 	iniContents.append('INPUT_19 = {}\n'.format(parent.input_19.currentText()))
+	iniContents.append('INPUT_INVERT_19 = {}\n'.format(parent.inputInvert_19.isChecked()))
 	iniContents.append('INPUT_JOINT_19 = {}\n'.format(parent.inputJoint_19.currentData()))
 	iniContents.append('INPUT_20 = {}\n'.format(parent.input_20.currentText()))
+	iniContents.append('INPUT_INVERT_20 = {}\n'.format(parent.inputInvert_20.isChecked()))
 	iniContents.append('INPUT_JOINT_20 = {}\n'.format(parent.inputJoint_20.currentData()))
 	iniContents.append('INPUT_21 = {}\n'.format(parent.input_21.currentText()))
+	iniContents.append('INPUT_INVERT_21 = {}\n'.format(parent.inputInvert_21.isChecked()))
 	iniContents.append('INPUT_JOINT_21 = {}\n'.format(parent.inputJoint_21.currentData()))
 	iniContents.append('INPUT_22 = {}\n'.format(parent.input_22.currentText()))
+	iniContents.append('INPUT_INVERT_22 = {}\n'.format(parent.inputInvert_22.isChecked()))
 	iniContents.append('INPUT_JOINT_22 = {}\n'.format(parent.inputJoint_22.currentData()))
 	iniContents.append('INPUT_23 = {}\n'.format(parent.input_23.currentText()))
+	iniContents.append('INPUT_INVERT_23 = {}\n'.format(parent.inputInvert_23.isChecked()))
 	iniContents.append('INPUT_JOINT_23 = {}\n'.format(parent.inputJoint_23.currentData()))
 	iniContents.append('INPUT_24 = {}\n'.format(parent.input_24.currentText()))
+	iniContents.append('INPUT_INVERT_24 = {}\n'.format(parent.inputInvert_24.isChecked()))
 	iniContents.append('INPUT_JOINT_24 = {}\n'.format(parent.inputJoint_24.currentData()))
 	iniContents.append('INPUT_25 = {}\n'.format(parent.input_25.currentText()))
+	iniContents.append('INPUT_INVERT_25 = {}\n'.format(parent.inputInvert_25.isChecked()))
 	iniContents.append('INPUT_JOINT_25 = {}\n'.format(parent.inputJoint_25.currentData()))
 	iniContents.append('INPUT_26 = {}\n'.format(parent.input_26.currentText()))
+	iniContents.append('INPUT_INVERT_26 = {}\n'.format(parent.inputInvert_26.isChecked()))
 	iniContents.append('INPUT_JOINT_26 = {}\n'.format(parent.inputJoint_26.currentData()))
 	iniContents.append('INPUT_27 = {}\n'.format(parent.input_27.currentText()))
+	iniContents.append('INPUT_INVERT_27 = {}\n'.format(parent.inputInvert_27.isChecked()))
 	iniContents.append('INPUT_JOINT_27 = {}\n'.format(parent.inputJoint_27.currentData()))
 	iniContents.append('INPUT_28 = {}\n'.format(parent.input_28.currentText()))
+	iniContents.append('INPUT_INVERT_28 = {}\n'.format(parent.inputInvert_28.isChecked()))
 	iniContents.append('INPUT_JOINT_28 = {}\n'.format(parent.inputJoint_28.currentData()))
 	iniContents.append('INPUT_29 = {}\n'.format(parent.input_29.currentText()))
+	iniContents.append('INPUT_INVERT_29 = {}\n'.format(parent.inputInvert_29.isChecked()))
 	iniContents.append('INPUT_JOINT_29 = {}\n'.format(parent.inputJoint_29.currentData()))
 	iniContents.append('INPUT_30 = {}\n'.format(parent.input_30.currentText()))
+	iniContents.append('INPUT_INVERT_30 = {}\n'.format(parent.inputInvert_30.isChecked()))
 	iniContents.append('INPUT_JOINT_30 = {}\n'.format(parent.inputJoint_30.currentData()))
 	iniContents.append('INPUT_31 = {}\n'.format(parent.input_31.currentText()))
+	iniContents.append('INPUT_INVERT_31 = {}\n'.format(parent.inputInvert_31.isChecked()))
 	iniContents.append('INPUT_JOINT_31 = {}\n'.format(parent.inputJoint_31.currentData()))
 
 
 	# build the [OUTPUTS] section
 	iniContents.append('\n[OUTPUTS]\n')
+	iniContents.append('# DO NOT change the output text\n')
 	iniContents.append('OUTPUT_0 = {}\n'.format(parent.output_0.currentText()))
 	iniContents.append('OUTPUT_1 = {}\n'.format(parent.output_1.currentText()))
 	iniContents.append('OUTPUT_2 = {}\n'.format(parent.output_2.currentText()))
@@ -883,42 +915,45 @@ def buildio(parent):
 	ioContents = []
 	ioContents = ['# This file was created with the 7i92 Wizard on ']
 	ioContents.append(datetime.now().strftime('%b %d %Y %H:%M:%S') + '\n')
-	ioContents.append('# If you make changes to this file DO NOT run the configuration tool again!\n')
-	ioContents.append('# This file will be replaced with a new file if you do!\n\n')
+	ioContents.append('# If you make changes to this file your screwed\n\n')
 
 	# build the inputs
 	for index in range(31):
 		inputText = getattr(parent, 'input_' + str(index)).currentText()
 		inputJoint = getattr(parent, 'inputJoint_' + str(index)).currentData()
+		if getattr(parent, 'inputInvert_' + str(index)).isChecked():
+			invert = '-not'
+		else:
+			invert = ''
 		if inputText == 'Home':
-			ioContents.append('net home-joint-{0} joint.{0}.home-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net home-joint-{0} joint.{0}.home-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 		elif inputText == 'Both Limit':
-			ioContents.append('net limits-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net limits-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 			ioContents.append('net limits-joint-{0} joint.{0}.pos-lim-sw-in\n'.format(inputJoint))
 		elif inputText == 'Min Limit':
-			ioContents.append('net min-limit-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net min-limit-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 		elif inputText == 'Max Limit':
-			ioContents.append('net max-limit-joint-{0} joint.{0}.pos-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net max-limit-joint-{0} joint.{0}.pos-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 		elif inputText == 'Home & Limit':
-			ioContents.append('net home-limit-joint-{0} joint.{0}.home-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net home-limit-joint-{0} joint.{0}.home-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 			ioContents.append('net home-limit-joint-{0} joint.{0}.neg-lim-sw-in\n'.format(inputJoint))
 			ioContents.append('net home-limit-joint-{0} joint.{0}.pos-lim-sw-in\n'.format(inputJoint))
 		elif inputText == 'Min Limit & Home':
-			ioContents.append('net min-limit-home-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net min-limit-home-joint-{0} joint.{0}.neg-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 			ioContents.append('net min-limit-home-joint-{0} joint.{0}.home-sw-in\n'.format(inputJoint))
 		elif inputText == 'Max Limit & Home':
-			ioContents.append('net max-limit-home-joint-{0} joint.{0}.pos-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}.in\n'.format(inputJoint, index))
+			ioContents.append('net max-limit-home-joint-{0} joint.{0}.pos-lim-sw-in <= hm2_7i92.0.7i76.0.0.input-{1:02}{2}\n'.format(inputJoint, index, invert))
 			ioContents.append('net max-limit-home-joint-{0} joint.{0}.home-sw-in\n'.format(inputJoint))
 		elif inputText == 'Probe':
-			ioContents.append('net probe-input motion.probe-input <= hm2_7i92.0.7i76.0.0.input-{0:02}.in\n'.format(index))
+			ioContents.append('net probe-input motion.probe-input <= hm2_7i92.0.7i76.0.0.input-{0:02}\n'.format(index))
 		elif inputText == 'Digital In 0':
-			ioContents.append('net digital-input-0 motion.digital-in-00 <= hm2_7i92.0.7i76.0.0.input-{0:02}.in\n'.format(index))
+			ioContents.append('net digital-input-0 motion.digital-in-00 <= hm2_7i92.0.7i76.0.0.input-{0:02}{1}\n'.format(index, invert))
 		elif inputText == 'Digital In 1':
-			ioContents.append('net digital-input-1 motion.digital-in-01 <= hm2_7i92.0.7i76.0.0.input-{0:02}.in\n'.format(index))
+			ioContents.append('net digital-input-1 motion.digital-in-01 <= hm2_7i92.0.7i76.0.0.input-{0:02}{1}\n'.format(index, invert))
 		elif inputText == 'Digital In 2':
-			ioContents.append('net digital-input-2 motion.digital-in-02 <= hm2_7i92.0.7i76.0.0.input-{0:02}.in\n'.format(index))
+			ioContents.append('net digital-input-2 motion.digital-in-02 <= hm2_7i92.0.7i76.0.0.input-{0:02}{1}\n'.format(index, invert))
 		elif inputText == 'Digital In 3':
-			ioContents.append('net digital-input-3 motion.digital-in-03 <= hm2_7i92.0.7i76.0.0.input-{0:02}.in\n'.format(index))
+			ioContents.append('net digital-input-3 motion.digital-in-03 <= hm2_7i92.0.7i76.0.0.input-{0:02}{1}\n'.format(index, invert))
 
 	# build the outputs
 	for index in range(15):
@@ -944,7 +979,7 @@ def buildio(parent):
 		if outputText == 'Digital Out 2':
 			ioContents.append('net digital-out-2 motion.digital-out-02 => hm2_7i92.0.7i76.0.0.output-{0:02}\n'.format(index))
 		if outputText == 'Digital Out 3':
-			ioContents.append('net digital-out-3 motion.digital-out-03 => hm2_7i92.0.7i76.0.0.output-0:02}\n'.format(index))
+			ioContents.append('net digital-out-3 motion.digital-out-03 => hm2_7i92.0.7i76.0.0.output-{0:02}\n'.format(index))
 
 	with open(ioFilePath, 'w') as ioFile:
 		ioFile.writelines(ioContents)

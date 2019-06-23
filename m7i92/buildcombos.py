@@ -102,12 +102,15 @@ def setupCombo(combo):
 								['Debug Unconditional', '0x40000000'],
 								['Debug All', '0x7FFFFFFF']]
 
-	if combo == 'daugtherBoardCB':
-		comboList = [['7i76', '7i76'],
-								['7i77', '7i77']]
+	if combo == 'board':
+		comboList = [['7i92', '7i92']]
 
 	if combo == 'driver':
 		comboList = [['HostMot2 Ethernet', 'hm2_eth']]
+
+	if combo == 'daughter':
+		comboList = [['7i76', '7i76'],
+								['7i77', '7i77']]
 
 	if combo == 'firmware':
 		comboList = [['Select', False],

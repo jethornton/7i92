@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>7i92 Configuration Tool</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;7i92 Configuration Tool&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

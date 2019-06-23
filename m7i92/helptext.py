@@ -39,20 +39,16 @@ Configuration Name is letters, numbers, spaces (replaced by underscore)
 Version = 1.1 or higher
 
 IP Address 10.10.10.10 is recommended to avoid conflicts on your LAN
-	10.10.10.10 W5 Down W6 Up
-	192.168.1.121 W5 Down W5 Down
+	10.10.10.10 W2 Down W3 Up
+	192.168.1.121 W2 Down W3 Down
 
 Maximum Linear Velocity is in User Units per second.
 
 Firmware
 To read the current firmware select the IP Address first.
-After reading the current firmware the Copy button will place the text in the clipboard.
-
+	After reading the current firmware the Copy button will place the text in the clipboard.
 To flash a card select the firmware and IP Address first.
-After flashing Reload or Power Cycle the card
-
-While you can flash the 7i92 with many different bit files at this time the
-configuration tool is for the 7i76 and 7i77.
+	After flashing Reload or Power Cycle the card
 """
 
 text_1 = """
@@ -64,7 +60,10 @@ QtPyVCP can only be installed on Debian 9
 
 text_2 = """
 Help Text for Axis Tab
-Joints must be configured in order starting with 0 and not skipping any.
+
+Joints must be configured starting with 0 and not skipping any.
+
+Any joint can have any axis letter.
 
 Scale is the number of steps to move one user unit (inch or mm).
 Limits are in user units.
@@ -73,6 +72,8 @@ Velocity is user units per second, Acceleration is user units per second per sec
 Axis, PID Settings and StepGen Settings are required.
 
 Homing fields are optional.
+
+For gantry type of machines just select the same axis for each joint.
 """
 
 text_3 = """
@@ -86,6 +87,8 @@ Inputs are optional
 
 If the input is a type that is associated with an axis the axis must be
 specified.
+
+Invert an input means if the input is on it is treated as off.
 """
 
 text_5 = """
