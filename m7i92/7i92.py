@@ -40,7 +40,7 @@ class MainWindow(QMainWindow):
 		self.buildCB()
 		self.setupConnections()
 		self.miscStuff()
-		self.axisList = ['axisCB_0', 'axisCB_1', 'axisCB_2', 'axisCB_3', 'axisCB_4']
+		self.axisList = ['axisCB_0', 'axisCB_1', 'axisCB_2', 'axisCB_3', 'axisCB_4', 'axisCB_5']
 		self.ladderOptionsList = ['ladderRungsSB', 'ladderBitsSB', 'ladderWordsSB',
 			'ladderTimersSB', 'iecTimerSB', 'ladderMonostablesSB', 'ladderCountersSB',
 			'ladderInputsSB', 'ladderOutputsSB', 'ladderExpresionsSB',
@@ -227,11 +227,6 @@ class MainWindow(QMainWindow):
 				getattr(self, 'maxVelocity_' + str(i)).setToolTip('millimeters per second')
 				getattr(self, 'maxAccel_' + str(i)).setToolTip('millimeters per second per second')
 			self.units = 'mm'
-		if self.linearUnitsCB.itemData(self.linearUnitsCB.currentIndex()):
-			self.axisTab.setEnabled(True)
-			self.joint0tab.setEnabled(True)
-		else:
-			self.axisTab.setEnabled(False)
 
 	def daughterChanged(self):
 		if self.daughterCB.itemData(self.daughterCB.currentIndex()) == '7i77':
@@ -242,20 +237,29 @@ class MainWindow(QMainWindow):
 				getattr(self, 'stepGen_' + str(i)).setVisible(True)
 
 	def onAxisChanged(self):
-			coordList = []
-			for item in self.axisList:
-					if getattr(self,item).itemData(getattr(self,item).currentIndex()):
-							jointTab = getattr(self,item).objectName()[7]
-							axisLetter = getattr(self,item).itemData(getattr(self,item).currentIndex())
-							coordList.append(axisLetter)
-							if axisLetter in ['X', 'Y', 'Z', 'U', 'V', 'W']:
-									getattr(self, 'axisType_' + jointTab).setText('LINEAR')
-							elif axisLetter in ['A', 'B', 'C']:
-									getattr(self, 'axisType_' + jointTab).setText('ANGULAR')
-							else:
-									getattr(self, 'axisType_' + jointTab).setText('')
-			self.coordinatesLB.setText(''.join(coordList))
-			self.stepgensSB.setValue(len(coordList))
+		coordList = []
+		if self.daughterCB.itemData(self.daughterCB.currentIndex()) == '7i77':
+			tabs = 5
+		else:
+			tabs = 4
+		for item in self.axisList:
+			jointTab = int(getattr(self,item).objectName()[7])
+			if getattr(self,item).itemData(getattr(self,item).currentIndex()):
+				axisLetter = getattr(self,item).itemData(getattr(self,item).currentIndex())
+				coordList.append(axisLetter)
+				if jointTab < tabs:
+					getattr(self, 'jointTab_' + str(jointTab + 1)).setEnabled(True)
+				if axisLetter in ['X', 'Y', 'Z', 'U', 'V', 'W']:
+					getattr(self, 'axisType_' + str(jointTab)).setText('LINEAR')
+				elif axisLetter in ['A', 'B', 'C']:
+					getattr(self, 'axisType_' + str(jointTab)).setText('ANGULAR')
+				else:
+					getattr(self, 'axisType_' + str(jointTab)).setText('')
+			else:
+				if jointTab < tabs:
+					getattr(self, 'jointTab_' + str(jointTab + 1)).setEnabled(False)
+		self.coordinatesLB.setText(''.join(coordList))
+		self.stepgensSB.setValue(len(coordList))
 
 	def driveChanged(self):
 			timing = self.sender().itemData(self.sender().currentIndex())
@@ -383,7 +387,7 @@ class MainWindow(QMainWindow):
 					self.firmwareCB.addItem(item[0], item[1])
 			for item in buildcombos.setupCombo('spindle'):
 					self.spindleTypeCB.addItem(item[0], item[1])
-			for i in range(5):
+			for i in range(6):
 					for item in buildcombos.setupCombo('axis'):
 							getattr(self, 'axisCB_' + str(i)).addItem(item[0], item[1])
 			for i in range(32):

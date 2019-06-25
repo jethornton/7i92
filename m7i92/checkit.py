@@ -56,7 +56,6 @@ def config(parent):
 		tabError = True
 		configErrors.append('\tAt least one Joint must be configured starting with Joint 0')
 	else: #check the joints
-		# make this a loop getattr(parent, '_' + str(index))
 		for index in range(5):
 			if getattr(parent, 'axisCB_' + str(index)).currentText() != 'Select':
 				if not getattr(parent, 'scale_' + str(index)).text():
