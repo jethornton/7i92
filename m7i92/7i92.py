@@ -30,8 +30,10 @@ class MainWindow(QMainWindow):
 		self.configNameUnderscored = ''
 		self.checkConfig = checkit.config
 		self.builddirs = buildfiles.builddirs
-		self.buildini = buildfiles.buildini
-		self.buildhal = buildfiles.buildhal
+		self.servoini = buildfiles.servoini
+		self.stepperini = buildfiles.stepperini
+		self.servohal = buildfiles.servohal
+		self.stepperhal = buildfiles.stepperhal
 		self.buildio = buildfiles.buildio
 		self.buildmisc = buildfiles.buildmisc
 		self.pcStats = platform.uname()
@@ -90,7 +92,7 @@ class MainWindow(QMainWindow):
 	@pyqtSlot()
 	def on_actionCheck_triggered(self):
 		if self.checkConfig(self):
-			QMessageBox.about(self, 'Configuration', '				Checked OK				')
+			QMessageBox.about(self, 'Configuration', '      Checked OK      ')
 		else:
 			self.errorDialog(self.checkConfig.result)
 
@@ -101,20 +103,44 @@ class MainWindow(QMainWindow):
 			return
 
 		result = self.builddirs(self)
+		daughterCard = self.daughterCB.itemData(self.daughterCB.currentIndex())
+		if daughterCard == '7i77':
+			if result:
+				result = self.servoini(self)
+			else:
+				self.statusbar.showMessage('Build Directories Failed')
+				return
+			if result:
+				result = self.servohal(self)
+			else:
+				self.statusbar.showMessage('Build INI File Failed')
+				return
+		else:
+			if result:
+				result = self.stepperini(self)
+			else:
+				self.statusbar.showMessage('Build Directories Failed')
+				return
+			if result:
+				result = self.stepperhal(self)
+			else:
+				self.statusbar.showMessage('Build INI File Failed')
+				return
+
 		if result:
-			result = self.buildini(self)
-		else: self.statusbar.showMessage('Build Directories Failed')
-		if result:
-			result = self.buildhal(self)
-		else: self.statusbar.showMessage('Build INI File Failed')
-		if result:
-			result = self.buildio(self)
-		else: self.statusbar.showMessage('Build HAL Files Failed')
+			result = self.buildio(self, daughterCard)
+		else:
+			self.statusbar.showMessage('Build HAL Files Failed')
+			return
 		if result:
 			result = self.buildmisc(self)
-		else: self.statusbar.showMessage('Build Misc. Files Failed')
+		else:
+			self.statusbar.showMessage('Build I/O Files Failed')
+			return
 		if result:
 			self.statusbar.showMessage('Build Files Completed')
+		else:
+			self.statusbar.showMessage('Build Misc Files Failed')
 
 
 	@pyqtSlot()
