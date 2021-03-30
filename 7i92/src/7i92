@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+import sys, os
+from functools import partial
+
+from lib7i92 import card
+from lib7i92 import buildcb
+from lib7i92 import extcmd
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+
+VERSION = '0.0.1'
+
+class VersionError(QMainWindow):
+	def __init__(self):
+		super(VersionError, self).__init__()
+		print('wrong python version')
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Warning)
+		msgBox.setWindowTitle('Version Error')
+		errorText = ("Python 3.6 or later is required.\n"
+									f"Your Python version is {sys.version[0:3]}")
+		msgBox.setText(errorText)
+		msgBox.setStandardButtons(QMessageBox.Ok)
+		msgBox.exec()
+		sys.exit()
+
+class MainWindow(QMainWindow):
+	def __init__(self):
+		super(MainWindow, self).__init__()
+		if os.path.split(sys.argv[0])[0] == '/usr/bin':
+			self.lib_path = '/usr/lib/lib7i92'
+			print('Installed')
+		if os.path.split(sys.argv[0])[0] == '.':
+			self.lib_path = os.path.split(os.path.realpath(sys.argv[0]))[0]
+			print('In Development')
+		uic.loadUi(os.path.join(self.lib_path, '7i92.ui'), self)
+		self.setWindowTitle(f'7i92 Configuration Tool Version {VERSION}')
+		self.setup_gui()
+		self.setup_connects()
+		self.setup_libs()
+
+		self.show()
+
+	def setup_gui(self):
+		buildcb.build(self)
+
+	def setup_connects(self):
+		self.nameLE.textChanged[str].connect(self.name_changed)
+		self.ipAddressCB.currentIndexChanged.connect(self.ipChanged)
+		self.readPB.clicked.connect(partial(card.readCard, self, '7i92'))
+		self.flashPB.clicked.connect(partial(card.flashCard, self, '7i92'))
+		self.reloadPB.clicked.connect(partial(card.reloadCard, self, '7i92'))
+
+	def setup_libs(self):
+		self.extcmd = extcmd.extcmd()
+
+	def name_changed(self, text):
+		# update the iniDictionary when text is changed
+		if text:
+			#self.configNameUnderscored = text.replace(' ','_').lower()
+			self.configPath = os.path.expanduser('~/linuxcnc/configs') + '/' + text.replace(' ','_').lower()
+			self.configPathLbl.setText(self.configPath)
+		else:
+			self.configPathLbl.setText('')
+
+	def ipChanged(self):
+		if self.ipAddressCB.currentText() == 'Custom':
+			self.customipLE.setEnabled(True)
+		else:
+			self.customipLE.setEnabled(False)
+
+
+	def errorMsgOk(self, text, title=None):
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Warning)
+		msgBox.setWindowTitle(title)
+		msgBox.setText(text)
+		msgBox.setStandardButtons(QMessageBox.Ok)
+		msgBox.exec()
+
+def main():
+	app = QApplication(sys.argv)
+	if float(sys.version[0:3]) < 3.6:
+		ex = VersionError()
+	else:
+		ex = MainWindow()
+	sys.exit(app.exec_())
+
+if __name__ == "__main__":
+	main()

@@ -1,8 +1,12 @@
-*.egg-info
-__pycache__/
-*.pyc
-/old files
-*.txt
+old
+*.dsc
+*.xz
+*.buildinfo
+*.changes
+7i92/src/firmware
+7i92/debian/7i92
+7i92/debian/.debhelper
+7i92/debian/*.substvars
+7i92/debian/files
+7i92/debian/debhelper*
 docs/build
-7i76
-bp_touch_v6

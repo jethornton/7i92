@@ -4,38 +4,44 @@ Installing
 
 7i92 Configuration Tool
 
-1. Install required dependencies. In a terminal do:
+
+.. Note:: Tested on Debian 10, no other OS is supported but it should
+	work on other Debian type OS's.
+
+.. Note:: Requires Python 3.6 or newer to work.
+
+I now have a Debian deb for installing 7i92!!!
+
+Download the `deb <https://github.com/jethornton/7i92/raw/master/7i92_1.2.5_all.deb>`_
+
+Or use wget from a terminal
 ::
 
-    sudo apt install python3-pip python3-pyqt5 libpci-dev git
+	wget https://github.com/jethornton/7i96/raw/master/7i92_1.2.5_all.deb
 
-2. Install the 7i92 Configuration Tool. in a terminal do:
+If you get `bash: wget: command not found` you can install it from a terminal with
 ::
 
-    pip3 install git+https://github.com/jethornton/7i92.git
+	sudo apt install wget
 
-3. Create a file in your home directory called ``.xsessionrc`` and add the
-following if your using Debian 9 then log out and back in or reboot the PC.
+Open the File Manager and right click on the file and open with Gdebi then install.
 
+If you don't have Gdebi installed you can install it from a terminal
 ::
 
-  if [ -d $HOME/.local/bin ]; then
-    export PATH="$HOME/.local/bin:$PATH"
-  fi
+	sudo apt install gdebi
 
-4. Run the 7i92 Configuration Tool. In a terminal do:
-::
+If you don't have LinuxCNC installed then the 7i92 Configuration tool
+will show up in the Applications > Other menu otherwise it will be in
+the CNC menu.
 
-    7i92
+To flash firmware to the 7i92 you need to install 
+`mesaflash <https://github.com/LinuxCNC/mesaflash>`_ from the LinuxCNC
+repository.
 
-To upgrade the 7i92 Configuration Tool In a terminal do
-::
+To uninstall the 7i92 Configuration Tool right click on the .deb file
+and open with Gdebi and select `Remove Package`.
 
-    pip3 install git+https://github.com/jethornton/7i92.git --upgrade
-
-
-To uninstall the 7i92 Configuration Tool
-::
-
-    pip3 uninstall 7i92
-
+To upgrade the 7i92 Configuration Tool delete the .deb file and download
+a fresh copy then right click on the .deb file and open with Gdebi and
+select `Reinstall Package`.

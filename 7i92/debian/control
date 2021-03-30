@@ -1,0 +1,14 @@
+Source: 7i92
+Maintainer: John Thornton, <jt@gnipsel.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Section: python
+Priority: optional
+
+Package: 7i92
+Priority: optional
+Architecture: all
+Depends: python3 (>=3.6), python3-pyqt5, ${misc:Depends}
+Description: 7i92 Configuration Tool
+ This is its extended description
+ Each line must have one space at the start

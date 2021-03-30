@@ -1,0 +1,5 @@
+src/7i92 usr/bin
+src/7i92.ui usr/lib/lib7i92
+src/lib7i92/*.* usr/lib/python3/dist-packages/lib7i92
+src/firmware/*.* usr/lib/lib7i92
+*.desktop usr/share/applications
