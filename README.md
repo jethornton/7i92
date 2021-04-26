@@ -3,7 +3,7 @@
 
 The 7i92 Configuration Tool requires Python 3.6 or newer to work.
 
-See the [documentation](https://jethornton.github.io/7i92/) for installation and
+See the [documentation](https://gnipsel.com/mesa/index.html) for installation and
 usage instructions.
 
 Note: The 7i92 requires LinuxCNC 2.8 Uspace or newer to work.
