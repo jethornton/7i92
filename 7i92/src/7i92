@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
-import sys, os
+import sys, os, subprocess
 from functools import partial
 
 from lib7i92 import card
 from lib7i92 import buildcb
 from lib7i92 import extcmd
+from lib7i92 import loadini
+from lib7i92 import checkconfig
+from lib7i92 import buildfiles
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-
-VERSION = '0.0.1'
+from PyQt5.QtWidgets import QFileDialog
 
 class VersionError(QMainWindow):
 	def __init__(self):
@@ -32,19 +34,41 @@ class MainWindow(QMainWindow):
 		if os.path.split(sys.argv[0])[0] == '/usr/bin':
 			self.lib_path = '/usr/lib/lib7i92'
 			print('Installed')
+			devel = False
+			if len(sys.argv) > 1:
+				if sys.argv[1] == 'devel':
+					devel = True
 		if os.path.split(sys.argv[0])[0] == '.':
 			self.lib_path = os.path.split(os.path.realpath(sys.argv[0]))[0]
 			print('In Development')
+			devel = True
 		uic.loadUi(os.path.join(self.lib_path, '7i92.ui'), self)
-		self.setWindowTitle(f'7i92 Configuration Tool Version {VERSION}')
+		self.version = '0.0.1'
+		self.setWindowTitle(f'7i92 Configuration Tool Version {self.version}')
+		self.card = {'type':'7i92'}
+
 		self.setup_gui()
 		self.setup_connects()
 		self.setup_libs()
+		self.open_gui = False
 
+		#self.testing()
+		#if devel:
+		#	loadini.openini(self, '/home/john/linuxcnc/configs/7i92/7i92.ini')
 		self.show()
 
 	def setup_gui(self):
 		buildcb.build(self)
+		try:
+			subprocess.check_output('mesaflash', encoding='UTF-8')
+		except FileNotFoundError:
+			t = ('Mesaflash not found on this PC!\n'
+				'Go to:\nhttps://github.com/LinuxCNC/mesaflash\n'
+				'for installation instructions.')
+			self.machinePTE.appendPlainText(t)
+			self.readPB.setEnabled(False)
+			self.flashPB.setEnabled(False)
+			self.reloadPB.setEnabled(False)
 
 	def setup_connects(self):
 		self.nameLE.textChanged[str].connect(self.name_changed)
@@ -52,16 +76,37 @@ class MainWindow(QMainWindow):
 		self.readPB.clicked.connect(partial(card.readCard, self, '7i92'))
 		self.flashPB.clicked.connect(partial(card.flashCard, self, '7i92'))
 		self.reloadPB.clicked.connect(partial(card.reloadCard, self, '7i92'))
+		self.actionOpenFile.triggered.connect(self.open_ini)
+		self.actionCheckConfig.triggered.connect(partial(checkconfig.check, self))
+		self.actionBuildConfig.triggered.connect(partial(buildfiles.build, self))
+
+	def open_ini(self):
+		if os.path.isdir(os.path.expanduser('~/linuxcnc/configs')):
+			configsDir = os.path.expanduser('~/linuxcnc/configs')
+		else:
+			configsDir = os.path.expanduser('~/')
+		fileName = QFileDialog.getOpenFileName(self,
+		caption="Select Configuration INI File", directory=configsDir,
+		filter='*.ini', options=QFileDialog.DontUseNativeDialog,)
+		if fileName:
+			iniFile = (fileName[0])
+			if loadini.openFile(self, iniFile):
+				pass
+
 
 	def setup_libs(self):
 		self.extcmd = extcmd.extcmd()
 
 	def name_changed(self, text):
-		# update the iniDictionary when text is changed
 		if text:
-			#self.configNameUnderscored = text.replace(' ','_').lower()
+			self.configName = text.replace(' ','_').lower()
 			self.configPath = os.path.expanduser('~/linuxcnc/configs') + '/' + text.replace(' ','_').lower()
 			self.configPathLbl.setText(self.configPath)
+			if not self.open_gui:
+				if os.path.exists(self.configPath):
+					self.pathOkLbl.setText('Config Name Conflict')
+				else:
+					self.pathOkLbl.setText('Config Name OK')
 		else:
 			self.configPathLbl.setText('')
 
@@ -79,6 +124,18 @@ class MainWindow(QMainWindow):
 		msgBox.setText(text)
 		msgBox.setStandardButtons(QMessageBox.Ok)
 		msgBox.exec()
+
+	def errorMsgOkCancel(self, text, title=None):
+		msgBox = QMessageBox()
+		msgBox.setIcon(QMessageBox.Warning)
+		msgBox.setWindowTitle(title)
+		msgBox.setText(text)
+		msgBox.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+		returnValue = msgBox.exec()
+		if returnValue == QMessageBox.Ok:
+			return True
+		else:
+			return False
 
 def main():
 	app = QApplication(sys.argv)

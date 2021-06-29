@@ -2,8 +2,4 @@
 Options Tab
 ===========
 
-.. image:: images/options-tab.png
-    :align: center
-    :scale: 75%
-
-Here you can select some options.
+At this point the only thing that functions is the Firmware Tab.

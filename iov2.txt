@@ -1,0 +1,85 @@
+HAL lines for iocontrolv2 -> toolchanger protocol support:
+
+emc-abort: BIT,OUT: signals emc-originated abort to toolchanger.
+emc-abort-ack: BIT,IN: Acknowledge line from toolchanger for previous signal, or
+ jumpered to abort-tool-change if not used in toolchanger. NB: after signaling
+ an emc-abort, iov2 will block until emc-abort-ack is raised.
+emc-reason: S32,OUT : convey cause for EMC-originated abort to toolchanger.
+ Usage: UI informational. Valid during emc-abort True.
+start-change: BIT,OUT: asserted at the very beginning of an M6 operation,
+ before any spindle-off, quill-up, or move-to-toolchange-position oeprations
+ are executed.
+start-change-ack: BIT,IN: acknowledgment line for start-change. 
+
+HAL lines for toolchanger -> iocontrolv2 protocol support:
+
+toolchanger-fault: BIT,IN: toolchanger signals fault. This line is
+ contionuously monitored. A fault toogles a flag in iocontrol which is
+ reflected in the toolchanger-faulted pin.
+toolchanger-fault-ack: BIT,OUT: handshake line for above signal. will be set by
+ iov2 after above fault line True is recognized and deasserted when
+ toolchanger-fault drops. Toolchanger is free to interpret the ack; reading the
+ -ack lines assures fault has been received and acted upon.
+toolchanger-reason: S32,IN: convey reason code for toolchanger-originated fault
+ to iov2. Usage: signal wether to continue or abort the program, plus UI
+ informational if negative. Read during toolchanger-fault True. Non-zero values
+ will cause an Axis operator operator message or error message, see below. 
+
+Other:
+
+toolchanger-faulted: BIT,OUT: signals toolchanger-notify line has toggled and
+ toolchanger-reason-code was in the fault range. Next M6 will abort.
+toolchanger-clear-fault: BIT,IN: resets TC fault condition. Deasserts
+ toolchanger-faulted if toolchanger-notify is line False. Usage: UI clear fault
+ condition button.
+state: debugging pin reflecting internal state 
+
+iocontrolv2 configuration
+
+INIFILE options
+
+[EMCIO] PROTOCOL_VERSION : either 1 or 2. Defaults to 2. Setting to 1 will
+ emulate old iocontrol behaviour.
+[EMCIO] EMCIO : use iov2 here. You need to explicitly enable the start-change
+ protocol by adding the " -support-start-change" option; otherwise the
+ start-change pin remains low and start-change-ack is ignored. The reason for
+ this is better backwards compatibility.
+[TASK] IO_ERROR : printf-style template for operator error display (negative
+ toolchanger fault codes) . No quoting needed. Example: IO_ERROR = Toolchanger
+ fault %d . Default: toolchanger error %d .
+[EMC] DEBUG : To get a (quite detailed) trace, set either the RCS debugging flag
+ (0x00000200) in the ini file, section EMC, value DEBUG, or use the new
+ iocontrol debugging bit (0x00001000). The former will turn on RCS debugging
+ messages all over EMC, the latter only for iov2. 
+
+The state pin reflects iov2's internal state, which is one of: IDLE (0),
+ PREPARING(1), START_CHANGE(2), CHANGING(3), WAITING_FOR_ABORT_ACK(4). 
+
+iov2
+
+bit   OUT iocontrol.0.coolant-flood
+bit   OUT iocontrol.0.coolant-mist
+bit   OUT iocontrol.0.emc-abort ==> emc-abort-ack
+bit   IN  iocontrol.0.emc-abort-ack <== emc-abort-ack
+bit   IN  iocontrol.0.emc-enable-in <== estop-loop
+s32   OUT iocontrol.0.emc-reason ==> emc-reason
+bit   OUT iocontrol.0.lube
+bit   IN  iocontrol.0.lube_level
+bit   OUT iocontrol.0.start-change ==> start-change
+bit   IN  iocontrol.0.start-change-ack <== start-change-ack
+s32   OUT iocontrol.0.state ==> state
+bit   OUT iocontrol.0.tool-change ==> tool-change
+bit   IN  iocontrol.0.tool-changed <== tool-changed
+s32   OUT iocontrol.0.tool-number ==> tool-number
+s32   OUT iocontrol.0.tool-prep-number ==> tool-prep-number
+s32   OUT iocontrol.0.tool-prep-pocket ==> tool-prep-pocket
+bit   OUT iocontrol.0.tool-prepare ==> tool-prepare
+bit   IN  iocontrol.0.tool-prepared <== tool-prepared
+bit   IN  iocontrol.0.toolchanger-clear-fault <== toolchanger-clear-fault
+bit   IN  iocontrol.0.toolchanger-fault <== toolchanger-fault
+bit   OUT iocontrol.0.toolchanger-fault-ack ==> tool-prepare
+bit   OUT iocontrol.0.toolchanger-faulted ==> toolchanger-faulted
+s32   IN  iocontrol.0.toolchanger-reason <== toolchanger-reason
+bit   OUT iocontrol.0.user-enable-out ==> estop-loop
+bit   OUT iocontrol.0.user-request-enable
+

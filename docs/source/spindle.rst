@@ -2,11 +2,4 @@
 Spindle Tab
 ===========
 
-.. image:: images/spindle-tab.png
-    :align: center
-    :scale: 75%
-
-
-The Spindle Tab is under construction ATM.
-
-
+At this point the only thing that functions is the Firmware Tab.

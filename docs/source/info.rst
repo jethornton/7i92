@@ -2,7 +2,4 @@
 Info Tab
 ========
 
-.. image:: images/info-tab.png
-    :align: center
-    :scale: 75%
-
+At this point the only thing that functions is the Firmware Tab.

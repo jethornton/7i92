@@ -10,6 +10,9 @@ Installing
 
 .. Note:: Requires Python 3.6 or newer to work.
 
+.. Note:: This tool will only flash firmware at this time... use Pncconf
+	to make your configuration.
+
 I now have a Debian deb for installing 7i92!!!
 
 Download the `deb <https://github.com/jethornton/7i92/raw/master/7i92_0.0.1_all.deb>`_

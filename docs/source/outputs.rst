@@ -2,8 +2,4 @@
 Outputs Tab
 ===========
 
-.. image:: images/outputs-tab.png
-    :align: center
-    :scale: 75%
-
-Select the outputs you need.
+At this point the only thing that functions is the Firmware Tab.
